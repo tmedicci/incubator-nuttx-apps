@@ -993,7 +993,7 @@ int nxlooper_loopback(FAR struct nxlooper_s *plooper, int format,
   pthread_attr_t           tattr;
   struct audio_caps_desc_s cap_desc;
   struct ap_buffer_info_s  buf_info;
-  struct audio_caps_s      caps;
+  struct audio_caps_s      caps = {0};
   int                      min_channels;
   int                      ret;
 
