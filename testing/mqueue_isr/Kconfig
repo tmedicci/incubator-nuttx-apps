@@ -1,0 +1,38 @@
+#
+# For a description of the syntax of this configuration file,
+# see the file kconfig-language.txt in the NuttX tools repository.
+#
+
+config TESTING_MQUEUE_ISR
+	tristate "Message Queue ISR Test"
+	default n
+	depends on ARCH_CHIP_ESP32S3
+	---help---
+		Test mq_receive from interrupt context on ESP32-S3.
+		This test validates the file_mq_timedreceive_internal behavior
+		when called from an ISR: it should succeed when a message is
+		available and return -EAGAIN when the queue is empty (instead
+		of blocking).
+
+if TESTING_MQUEUE_ISR
+
+config TESTING_MQUEUE_ISR_PROGNAME
+	string "Program name"
+	default "mqueue_isr"
+	---help---
+		This is the name of the program that will be used from the nsh.
+
+config TESTING_MQUEUE_ISR_PRIORITY
+	int "Task priority"
+	default 100
+	---help---
+		Priority of the mqueue_isr task.
+
+config TESTING_MQUEUE_ISR_STACKSIZE
+	int "Stack size"
+	default 4096
+	---help---
+		Size of the stack used to create the task.
+
+endif # TESTING_MQUEUE_ISR
+
